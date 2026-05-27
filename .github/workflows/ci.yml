@@ -25,4 +25,10 @@ jobs:
         run: composer install
 
       - name: Executar tests
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit --log-junit results.xml
+
+      - name: Pujar artifacte
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultats-DG
+          path: results.xml
