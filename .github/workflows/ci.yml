@@ -1,0 +1,28 @@
+name: CI DG
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: [8.1, 8.2, 8.3]
+
+    steps:
+      - name: Checkout del repositori
+        uses: actions/checkout@v4
+
+      - name: Instal·lar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Instal·lar dependències
+        run: composer install
+
+      - name: Executar tests
+        run: ./vendor/bin/phpunit
